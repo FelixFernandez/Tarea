@@ -7,7 +7,7 @@ using DAL;
 
 namespace BLL
 {
-    public class Persona
+    public class Persona : ClaseMaestra
     {
         public int PersonaId { get; set; }
         public string Nombre { get; set; }
@@ -29,7 +29,7 @@ namespace BLL
             Telefonos.Add(new PersonasTelefonos(tipo, telefono));
         }
 
-        public bool Insertar()
+        public override bool Insertar()
         {
             int retorno = 0;
             ConexionDb conexion = new ConexionDb();
@@ -41,7 +41,7 @@ namespace BLL
                 this.PersonaId = retorno;
                 foreach (PersonasTelefonos item in this.Telefonos)
                 {
-                    conexion.Ejecutar(string.Format("Insert into PersonasTelefonos(PersonasTelefonos(PersonaId,Telefono) Values ({0},{1},'{2}')", retorno, (int)item.TipoTelefono, item.Telefono));
+                    conexion.Ejecutar(string.Format("Insert into PersonaTelefono(PersonaId,TipoTelefono,Telefono) Values ({0},{1},'{2}')", retorno, (int)item.TipoTelefono, item.Telefono));
                 }
             }
             catch (Exception ex)
@@ -50,42 +50,73 @@ namespace BLL
             }
             return retorno > 0;
         }
-           // retorno = conexion.Ejecutar("Insert Into Persona(PersonaId,Nombre,Sexo) Values('" + this.PersonaId + "','" + this.Nombre + "','" + this.Sexo + "') Select @@Identity");
-           // return retorno;
 
-        public bool Editar()
+        public override bool Editar()
         {
             bool retorno = false;
             ConexionDb conexion = new ConexionDb();
-            retorno = conexion.Ejecutar("Update Persona set Nombre = '" + this.Nombre + "' where PersonaId = " + this.PersonaId);
+
+            try
+            {
+                retorno = conexion.Ejecutar(string.Format("Update Persona set Nombre = '{0}' where PersonaId=" + this.Nombre, this.PersonaId));
+                if (retorno)
+                {
+                    foreach (PersonasTelefonos numero in this.Telefonos)
+                    {
+                        retorno = conexion.Ejecutar("Delete from PersonaTelefono Where PersonaId=" + this.PersonaId.ToString());
+                    }
+
+                }
+            } catch (Exception ex)
+            {
+                throw ex;
+            }
+            return retorno;
+        }
+      
+
+        public override bool Eliminar()
+        {
+            bool retorno = false;
+            ConexionDb conexion = new ConexionDb();
+            try
+            {
+                retorno = conexion.Ejecutar(string.Format("delete from Persona where PersonaId =" + this.PersonaId));
+
+                if (retorno)
+                    conexion.Ejecutar("Delete from PersonaTelefono where PersonaId=" + this.PersonaId.ToString());
+            }    
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+
             return retorno;
         }
 
-        public bool Eliminar()
-        {
-            bool retorna = false;
-            ConexionDb conexion = new ConexionDb();
-            retorna = conexion.Ejecutar("delete from Persona where PersonaId =" + this.PersonaId);
-            return retorna;
-
-        }
-
-        public bool Buscar(int IdBuscado)
+        public override bool Buscar(int IdBuscado)
         {
             DataTable dt = new DataTable();
             ConexionDb conexion = new ConexionDb();
 
-            dt = conexion.ObtenerDatos(String.Format("Select *from Persona Where PersonaId = {0}", IdBuscado));
-            if (dt.Rows.Count > 0)
+            try
             {
-                this.PersonaId = (int)dt.Rows[0]["PersonaId"];
-                this.Nombre = dt.Rows[0]["Nombre"].ToString();
-                this.Sexo = dt.Rows[0]["Sexo"].ToString();
+
+                dt = conexion.ObtenerDatos(String.Format("Select *from Persona Where PersonaId =" + IdBuscado));
+                if (dt.Rows.Count > 0)
+                {
+                    this.PersonaId = (int)dt.Rows[0]["PersonaId"];
+                    this.Nombre = dt.Rows[0]["Nombre"].ToString();
+                    this.Sexo = dt.Rows[0]["Sexo"].ToString();
+                }
+            }catch(Exception ex)
+            {
+                throw ex;
             }
             return dt.Rows.Count > 0;
         }
 
-        public DataTable Listado(string Campos, string Condicion, string Orden)
+        public override DataTable Listado(string Campos, string Condicion, string Orden)
         {
             string ordenFinal = "";
             ConexionDb conexion = new ConexionDb();
@@ -93,13 +124,6 @@ namespace BLL
             if (!Orden.Equals(""))
                 ordenFinal = " Orden by " + Orden;
             return conexion.ObtenerDatos("Select " + Campos + " From Persona Where " + Condicion + " " + ordenFinal);
-        }
-
-        public DataTable Listar(string campos = "*", string Filtro = "1=1")
-        {
-
-            ConexionDb conexion = new ConexionDb();
-            return conexion.ObtenerDatos("Select " + campos + " from Compras where " + Filtro);
         }
     }
 }

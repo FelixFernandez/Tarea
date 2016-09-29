@@ -94,6 +94,15 @@ namespace Personas {
         protected global::System.Web.UI.WebControls.TextBox TextBoxTelefono;
         
         /// <summary>
+        /// ButtonAgregar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonAgregar;
+        
+        /// <summary>
         /// ButtonGuardar control.
         /// </summary>
         /// <remarks>
@@ -121,58 +130,22 @@ namespace Personas {
         protected global::System.Web.UI.WebControls.Button ButtonEliminar;
         
         /// <summary>
-        /// DropDownListGridView control.
+        /// GridViewTelefonos control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownListGridView;
+        protected global::System.Web.UI.WebControls.GridView GridViewTelefonos;
         
         /// <summary>
-        /// TextBoxGridView control.
+        /// SqlDataSourceTelefonos control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxGridView;
-        
-        /// <summary>
-        /// ButtonBuscarGridView control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonBuscarGridView;
-        
-        /// <summary>
-        /// Label1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
-        
-        /// <summary>
-        /// GridView1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridView1;
-        
-        /// <summary>
-        /// SqlDataSource1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSourceTelefonos;
         
         /// <summary>
         /// bind control.

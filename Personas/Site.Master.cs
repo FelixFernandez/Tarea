@@ -17,7 +17,11 @@ namespace Personas
       
         protected void Page_Load(object sender, EventArgs e)
         {
-          
+            if (!Page.IsPostBack)
+            {
+                DropDownListTipoTelefono.DataSource = Enum.GetValues(typeof(TiposTelefonos));
+                DropDownListTipoTelefono.DataBind();
+            }
         }
 
         protected void ButtonGuardar_Click(object sender, EventArgs e)
@@ -28,29 +32,24 @@ namespace Personas
             else
 
             {
-                Persona persona = new Persona();
-                PersonasTelefonos personastelefonos = new PersonasTelefonos();
-                    
-                persona.PersonaId = Convert.ToInt32(TextBoxPersonaId.Text.Trim());
+                Persona persona;
+                if (Session["Persona"] == null)
+                    Session["Persona"] = new Persona();
+
+                persona = (Persona)Session["Persona"];
+
                 persona.Nombre = TextBoxNombre.Text.Trim();
-                persona.Sexo = DropDownListSexo.Text.Trim();
-               // personastelefonos.TipoTelefono = DropDownListTipoTelefono.Text.Trim();
-                personastelefonos.Telefono = TextBoxTelefono.Text.Trim();
             
-                if (persona.PersonaId > 0)
-                {
+                persona.Sexo = DropDownListSexo.Text;
 
-                    persona.Insertar();
-                    Response.Write("se guardo correctamente");
-                    TextBoxPersonaId.Text = string.Empty;
-                    TextBoxNombre.Text = string.Empty;
-                    TextBoxTelefono.Text = string.Empty;
+               if(persona.Insertar())
+                {
+                    TextBoxPersonaId.Text = persona.PersonaId.ToString();
+                    DropDownListSexo.Text = persona.Sexo.ToString();
+                    
 
                 }
-                else if (persona.PersonaId < 0)
-                {
-                    Response.Write("no se guardo correctamente");
-                }
+
 
             }
         }
@@ -87,12 +86,27 @@ namespace Personas
 
         }
 
-        protected void ButtonBuscarGridView_Click(object sender, EventArgs e)
+        protected void ButtonAgregar_Click(object sender, EventArgs e)
         {
-      
+            Persona persona;
+            if (Session["Persona"] == null)
+                Session["Persona"] = new Persona();
 
+            persona = (Persona)Session["Persona"];
+
+            TiposTelefonos tipo;
+
+            tipo = (TiposTelefonos)Enum.Parse(typeof(TiposTelefonos), DropDownListTipoTelefono.SelectedValue);
+
+            persona.AgregarTelefono(tipo, TextBoxTelefono.Text);
+
+            Session["Persona"] = persona;
+
+            GridViewTelefonos.DataSource = persona.Telefonos;
+            GridViewTelefonos.DataBind();
+
+            TextBoxTelefono.Text = "";
         }
-
     }
 }
 
