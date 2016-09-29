@@ -9,13 +9,15 @@ using System.Data;
 using DAL;
 using BLL;
 
+
 namespace Personas 
 {
     public partial class Site : System.Web.UI.MasterPage
     {
+      
         protected void Page_Load(object sender, EventArgs e)
         {
-
+          
         }
 
         protected void ButtonGuardar_Click(object sender, EventArgs e)
@@ -29,13 +31,13 @@ namespace Personas
                 Persona persona = new Persona();
                 PersonasTelefonos personastelefonos = new PersonasTelefonos();
                     
-                persona.personaId = Convert.ToInt32(TextBoxPersonaId.Text.Trim());
-                persona.nombre = TextBoxNombre.Text.Trim();
-                persona.sexo = DropDownListSexo.Text.Trim();
-                personastelefonos.tipoTelefono = DropDownListTipoTelefono.Text.Trim();
+                persona.PersonaId = Convert.ToInt32(TextBoxPersonaId.Text.Trim());
+                persona.Nombre = TextBoxNombre.Text.Trim();
+                persona.Sexo = DropDownListSexo.Text.Trim();
+               // personastelefonos.TipoTelefono = DropDownListTipoTelefono.Text.Trim();
                 personastelefonos.Telefono = TextBoxTelefono.Text.Trim();
             
-                if (persona.personaId > 0)
+                if (persona.PersonaId > 0)
                 {
 
                     persona.Insertar();
@@ -45,7 +47,7 @@ namespace Personas
                     TextBoxTelefono.Text = string.Empty;
 
                 }
-                else if (persona.personaId < 0)
+                else if (persona.PersonaId < 0)
                 {
                     Response.Write("no se guardo correctamente");
                 }
@@ -67,7 +69,7 @@ namespace Personas
 
             {
                 Persona persona = new Persona();
-                persona.personaId = Convert.ToInt32(TextBoxPersonaId.Text);
+                persona.PersonaId = Convert.ToInt32(TextBoxPersonaId.Text);
 
                 if (persona.Eliminar())
                 {
@@ -75,22 +77,22 @@ namespace Personas
                     TextBoxPersonaId.Text = string.Empty;
                     TextBoxNombre.Text = string.Empty;
                     TextBoxTelefono.Text = string.Empty;
+
                 }
             }
         }
 
         protected void ButtonBuscar_Click(object sender, EventArgs e)
         {
-            Persona persona = new Persona();
-            PersonasTelefonos personastelefonos = new PersonasTelefonos();
-
-            string filtro = "";
-
-          
-                filtro = "PersonalId like '%" + TextBoxPersonaId.Text + "%'";
-
-                GridView1.DataSource = persona.Listado("*", filtro, " asc ");
 
         }
+
+        protected void ButtonBuscarGridView_Click(object sender, EventArgs e)
+        {
+      
+
+        }
+
     }
 }
+

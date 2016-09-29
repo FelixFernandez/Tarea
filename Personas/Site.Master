@@ -62,35 +62,34 @@
                         </div>
                 </div>
         </asp:panel>  
-         
-              <center>
-              <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="4" DataSourceID="SqlDataSource1" ForeColor="#333333" GridLines="None" Width="583px">
-                  <AlternatingRowStyle BackColor="White" />
-                  <Columns>
-                      <asp:BoundField DataField="PersonaId" HeaderText="PersonaId" SortExpression="PersonaId" />
-                      <asp:BoundField DataField="Nombre" HeaderText="Nombre" SortExpression="Nombre" />
-                      <asp:BoundField DataField="Sexo" HeaderText="Sexo" SortExpression="Sexo" />
-                      <asp:BoundField DataField="PersonaTelefonoId" HeaderText="PersonaTelefonoId" SortExpression="PersonaTelefonoId" />
-                      <asp:BoundField DataField="TipoTelefono" HeaderText="TipoTelefono" SortExpression="TipoTelefono" />
-                      <asp:BoundField DataField="Telefono" HeaderText="Telefono" SortExpression="Telefono" />
-                  </Columns>
-                  <EditRowStyle BackColor="#2461BF" />
-                  <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                  <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                  <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-                  <RowStyle BackColor="#EFF3FB" />
-                  <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-                  <SortedAscendingCellStyle BackColor="#F5F7FB" />
-                  <SortedAscendingHeaderStyle BackColor="#6D95E1" />
-                  <SortedDescendingCellStyle BackColor="#E9EBEF" />
-                  <SortedDescendingHeaderStyle BackColor="#4870BE" />
-              </asp:GridView>
-              <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:PersonaConnectionString %>" SelectCommand="SELECT Persona.*, PersonaTelefono.PersonaTelefonoId, PersonaTelefono.TipoTelefono, PersonaTelefono.Telefono FROM Persona CROSS JOIN PersonaTelefono"></asp:SqlDataSource>
-              </center>
-              
       </div>   
-            <asp:ContentPlaceHolder ID="bind" runat="server">                    
-            </asp:ContentPlaceHolder>                    
-    </form>
+
+        <div>
+            <center>
+            Buscar Por:<asp:DropDownList ID="DropDownListGridView" runat="server">
+                    <asp:ListItem>id</asp:ListItem>
+                    <asp:ListItem>nombre</asp:ListItem>
+                    <asp:ListItem></asp:ListItem>
+            </asp:DropDownList>
+&nbsp;=
+            <asp:TextBox ID="TextBoxGridView" runat="server"></asp:TextBox>
+            <asp:Button ID="ButtonBuscarGridView" runat="server" Text="Button" OnClick="ButtonBuscarGridView_Click" />
+</center>
+        </div>
+        <center>                    
+            <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
+        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1" Width="386px">
+            <Columns>
+                <asp:BoundField DataField="PersonaId" HeaderText="PersonaId" SortExpression="PersonaId" />
+                <asp:BoundField DataField="Nombre" HeaderText="Nombre" SortExpression="Nombre" />
+                <asp:BoundField DataField="Sexo" HeaderText="Sexo" SortExpression="Sexo" />
+            </Columns>
+        </asp:GridView>
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:PersonaConnectionString %>" SelectCommand="SELECT * FROM [Persona]"></asp:SqlDataSource>
+   </center>
+
+         <asp:ContentPlaceHolder ID="bind" runat="server">                    
+            </asp:ContentPlaceHolder>
+   </form>
 </body>
 </html>

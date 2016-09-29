@@ -9,18 +9,42 @@ namespace BLL
 {
     public class PersonasTelefonos
     {
-        public int personasTelefonosId;
-        public int personaId;
-        public string tipoTelefono;
-        public string Telefono;
+       
+        
+        public string Telefono { get; set; }
+        public TiposTelefonos TipoTelefono { get; set; }
+
+       
+
+        public string Tipo
+        {
+            get { return this.TipoTelefono.ToString(); }
+        }
 
         public PersonasTelefonos()
         {
+            this.TipoTelefono = TiposTelefonos.Casa;
+            this.Telefono="";
+        }
+      
+
+        public PersonasTelefonos(TiposTelefonos tipo,string telefono)
+        {
+            this.TipoTelefono = tipo;
+            this.Telefono = telefono;
+        }
+
+
+        /* probando algo
+
+      
+        public PersonasTelefonos()
+        {
             this.personasTelefonosId = 0;
-            this.personaId = 0;
             this.tipoTelefono = "";
             this.Telefono = "";
         }
+
 
         public bool Insertar()
         {
@@ -72,6 +96,6 @@ namespace BLL
             if (!Orden.Equals(""))
                 ordenFinal = " Orden by " + Orden;
             return conexion.ObtenerDatos("Select " + Campos + " From PersonaTelefono Where " + Condicion + " " + ordenFinal);
-        }
+        }*/
     }
 }

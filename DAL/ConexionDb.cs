@@ -52,33 +52,33 @@ namespace DAL
         }
 
         public DataTable ObtenerDatos(String ComandoSql)
-        {
+         {
 
-            SqlDataAdapter adapter;
-            DataTable dt = new DataTable();
+             SqlDataAdapter adapter;
+             DataTable dt = new DataTable();
 
-            try
-            {
-                con.Open();
-                Cmd.Connection = con;
-                Cmd.CommandText = ComandoSql;
+             try
+             {
+                 con.Open();
+                 Cmd.Connection = con;
+                 Cmd.CommandText = ComandoSql;
 
-                adapter = new SqlDataAdapter(Cmd);
-                adapter.Fill(dt);
+                 adapter = new SqlDataAdapter(Cmd);
+                 adapter.Fill(dt);
 
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-                //MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                con.Close();
-            }
+             }
+             catch (Exception ex)
+             {
+                 throw ex;
+                 //MessageBox.Show(ex.Message);
+             }
+             finally
+             {
+                 con.Close();
+             }
 
-            return dt;
-        }
+             return dt;
+         }
 
 
         public Object ObtenerValor(String ComandoSql)
