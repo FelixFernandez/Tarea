@@ -14,8 +14,7 @@ namespace BLL
         public string Sexo { get; set; }
 
         public List<PersonasTelefonos> Telefonos { get; set; }
-
-
+       
         public Persona()
         {
             this.PersonaId = 0;
@@ -33,15 +32,18 @@ namespace BLL
         {
             int retorno = 0;
             ConexionDb conexion = new ConexionDb();
+            PersonasTelefonos pt = new PersonasTelefonos();
+
             object identity;
             try
             {
                 identity = conexion.ObtenerValor("Insert Into Persona(PersonaId,Nombre,Sexo) Values('" + this.PersonaId + "','" + this.Nombre + "','" + this.Sexo + "') Select @@Identity");
                 int.TryParse(identity.ToString(), out retorno);
                 this.PersonaId = retorno;
+
                 foreach (PersonasTelefonos item in this.Telefonos)
                 {
-                    conexion.Ejecutar(string.Format("Insert into PersonaTelefono(PersonaId,TipoTelefono,Telefono) Values ({0},{1},'{2}')", retorno, (int)item.TipoTelefono, item.Telefono));
+                    conexion.Ejecutar(string.Format("Insert into PersonaTelefono(PersonaId,TipoTelefono,Telefono) Values({0},{1},'{2}')", retorno, (int)item.TipoTelefono, item.Telefono));
                 }
             }
             catch (Exception ex)

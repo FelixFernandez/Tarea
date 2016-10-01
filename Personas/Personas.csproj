@@ -59,11 +59,20 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="BootStrap\StyleSheet1.css" />
+    <Content Include="Consultas\ConsultaPersona.aspx" />
     <Content Include="Default.aspx" />
+    <Content Include="Registros\RegistroPersona.aspx" />
     <Content Include="SQLQueryPersona.sql" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Consultas\ConsultaPersona.aspx.cs">
+      <DependentUpon>ConsultaPersona.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Consultas\ConsultaPersona.aspx.designer.cs">
+      <DependentUpon>ConsultaPersona.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -72,6 +81,13 @@
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Registros\RegistroPersona.aspx.cs">
+      <DependentUpon>RegistroPersona.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Registros\RegistroPersona.aspx.designer.cs">
+      <DependentUpon>RegistroPersona.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
